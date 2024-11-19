@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { CommonModule } from '@angular/common';
 import { MapasService } from './mapas.service';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './mapas.component.html',
   styleUrl: './mapas.component.scss'
 })
