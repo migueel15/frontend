@@ -26,19 +26,31 @@ export class SubirImagenesComponent {
     }
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('archivo', this.selectedFile);
 
-      this.http.post<any>('http://localhost:5000/v2/archivos/subir', formData).subscribe(
-        (response) => {
-          this.mensaje = response.mensaje;
-        },
-        (error) => {
-          this.mensaje = 'Error al subir la imagen';
+      try {
+        const response = await fetch('http://localhost:5000/v2/archivos/subir', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.mensaje || 'Error al subir la imagen');
         }
-      );
+
+        const data = await response.json();
+        this.mensaje = data.mensaje;
+      } catch (error) {
+        if (error instanceof Error) {
+          this.mensaje = error.message;
+        } else {
+          this.mensaje = 'Error desconocido al subir la imagen';
+        }
+      }
     }
   }
 }
