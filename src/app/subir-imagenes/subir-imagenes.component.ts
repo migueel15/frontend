@@ -1,8 +1,6 @@
 import { Component } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HttpClientModule } from "@angular/common/http";
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
@@ -33,7 +31,7 @@ export class SubirImagenesComponent {
 
       try {
         const response = await fetch(
-          "http://localhost:5003/v2/archivos/subir",
+          "http://localhost:8005/v2/archivos/subir",
           {
             method: "POST",
             body: formData,

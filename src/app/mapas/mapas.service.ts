@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MapasService {
-  private apiUrl = 'http://localhost:8000/v2/mapas/';
+  private apiUrl = 'http://localhost:8007/v2/mapas/';
 
   constructor(private http: HttpClient) {}
 
