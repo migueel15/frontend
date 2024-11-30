@@ -1,7 +1,13 @@
+<app-barra-busqueda (busqueda)="onSearchTextChanged($event)"></app-barra-busqueda>
+
 <div class="wiki-list">
-    <ul>
-        <li *ngFor="let wiki of wikis">
+    <ul *ngIf="wikisFiltradas.length > 0; else sinResultados">
+        <li *ngFor="let wiki of wikisFiltradas">
             <h2>{{ wiki.nombre }}</h2>
         </li>
     </ul>
 </div>
+
+<ng-template #sinResultados>
+    <h2>No se encontraron resultados</h2>
+</ng-template>
