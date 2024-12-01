@@ -21,4 +21,18 @@ export class FilterEntradasComponent {
   handleEntradasFilter(): void {
     this.filtroAplicado.emit(this.filtro);
   }
+
+  resetFilters(): void {
+    this.filtro = {
+      nombre: "",
+      autor: "",
+      fechaCreacion: "",
+    };
+    this.handleEntradasFilter();
+  }
+
+  onEnter(event: any): void {
+    event.preventDefault();
+    this.handleEntradasFilter();
+  }
 }

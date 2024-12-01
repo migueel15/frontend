@@ -1,6 +1,6 @@
 <h1 class="text-xl p-4">Lista de entradas de la wiki {{ nombre_wiki }}</h1>
 
-<app-filter-entradas />
+<app-filter-entradas (filtroAplicado)="aplicarFiltro($event)" />
 
 <div class="wiki-list mt-4 flex flex-col gap-4">
   <ul *ngIf="entradasFiltradas.length > 0; else sinResultados" class="space-y-4 w-full gap-4">
