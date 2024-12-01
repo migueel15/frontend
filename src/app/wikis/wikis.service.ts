@@ -16,4 +16,11 @@ export class WikisService {
       .get<{ wikis: any[] }>(this.apiUrl)
       .pipe(map((response) => response.wikis));
   }
+
+  // Método para eliminar una wiki
+  deleteWiki(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}${id}`);
+  }
+  
 }
+

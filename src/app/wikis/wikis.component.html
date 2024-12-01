@@ -9,10 +9,14 @@
 
 <div class="wiki-list mt-4 flex flex-col gap-4">
   <ul *ngIf="wikisFiltradas.length > 0; else sinResultados" class="space-y-4 w-full gap-4">
-    <li *ngFor="let wiki of wikisFiltradas" (click)="handleWikiClick(wiki.id)"
-      class="p-4 bg-white rounded shadow w-full">
-      <h2 class="text-xl font-semibold">{{ wiki.nombre }}</h2>
-      <p>{{ wiki.descripcion }}</p>
+    <li *ngFor="let wiki of wikisFiltradas" class="p-4 bg-white rounded shadow w-full flex justify-between">
+      <div (click)="handleWikiClick(wiki.id)" class="cursor-pointer flex-grow">
+        <h2 class="text-xl font-semibold">{{ wiki.nombre }}</h2>
+        <p>{{ wiki.descripcion }}</p>
+      </div>
+      <button (click)="borrarWiki(wiki.id)" class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+        Borrar
+      </button>
     </li>
   </ul>
 </div>

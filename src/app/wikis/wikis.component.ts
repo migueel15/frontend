@@ -50,5 +50,16 @@ export class WikisComponent implements OnInit {
     console.log("Click en wiki:", wikiId);
     this.router.navigate(["/wiki/", wikiId]);
   }
-}
 
+  borrarWiki(id: string): void {
+    this.wikisService.deleteWiki(id).subscribe({
+      next: () => {
+        this.wikis = this.wikis.filter((wiki) => wiki.id !== id);
+        this.wikisFiltradas = this.wikis;
+      },
+      error: (err) => {
+        console.error("Error al borrar la wiki:", err);
+      },
+    });
+  }
+}
