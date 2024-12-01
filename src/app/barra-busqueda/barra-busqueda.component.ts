@@ -5,8 +5,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-barra-busqueda',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './barra-busqueda.component.html',
-  styleUrl: './barra-busqueda.component.scss'
+  templateUrl: './barra-busqueda.component.html'
 })
 export class BarraBusquedaComponent {
   textoBusqueda: string = '';
