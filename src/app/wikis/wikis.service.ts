@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class WikisService {
-  private apiUrl = 'http://0.0.0.0:8001/v2/wikis/';
+  private apiUrl = 'http://localhost:8001/v2/wikis/';
 
   constructor(private http: HttpClient) {}
 
