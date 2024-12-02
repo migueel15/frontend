@@ -60,6 +60,13 @@
             flex: 1 1 100%;
         }
     }
+
+    button {
+        display: inline-flex;
+        justify-content: right;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
     
 }
 crearWiki-button {

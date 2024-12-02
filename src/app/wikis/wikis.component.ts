@@ -3,11 +3,12 @@ import { CommonModule } from "@angular/common";
 import { WikisService } from "./wikis.service";
 import { Router } from "@angular/router";
 import { BarraBusquedaComponent } from "../barra-busqueda/barra-busqueda.component";
+import { BotonEditarComponent } from "../boton-editar/boton-editar.component";
 
 @Component({
   selector: "app-wikis",
   standalone: true,
-  imports: [CommonModule, BarraBusquedaComponent],
+  imports: [CommonModule, BarraBusquedaComponent, BotonEditarComponent],
   templateUrl: "./wikis.component.html",
   styleUrls: ["./wikis.component.scss"],
 })
@@ -62,4 +63,10 @@ export class WikisComponent implements OnInit {
       },
     });
   }
+  editarWiki(wikiId: string): void {
+    console.log('Editar wiki con ID:', wikiId);
+    // Lógica para redirigir o abrir un modal de edición
+    this.router.navigate(['/editar-wiki/', wikiId]); // Ejemplo de redirección
+  }
+  
 }
