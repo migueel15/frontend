@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EntradaService } from './entrada.service';
 import { CommonModule } from '@angular/common';
 import { VersionComponent } from "../version/version.component";
@@ -20,6 +20,7 @@ export class EntradaComponent implements OnInit {
   constructor(
     private entradaService: EntradaService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -35,5 +36,11 @@ export class EntradaComponent implements OnInit {
         console.error('Error al obtener la entrada:', err);
       },
     });
+  }
+
+  verVersiones() {
+    console.log('Ver historial de versiones');
+
+    this.router.navigate([`/entrada/${this.entradaId}/versiones/`]);
   }
 }

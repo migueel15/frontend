@@ -1,5 +1,14 @@
 <div class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
-  <h2 class="mb-2 text-3xl font-bold text-gray-900">{{ nombreEntrada }}</h2>
+  <div class="mb-4 flex items-center justify-between">
+    <h2 class="text-3xl font-bold text-gray-900">{{ nombreEntrada }}</h2>
+
+    <button
+      (click)="verVersiones()"
+      class="rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
+    >
+      Historial de versiones
+    </button>
+  </div>
 
   <div class="flex justify-between text-sm text-gray-600">
     <div class="flex items-center space-x-2">
@@ -13,8 +22,8 @@
     </div>
   </div>
 
+  <!-- Espera a que el id de la versión actual esté disponible -->
   @if (versionActualId) {
-    <!-- Espera a que el id de la versión actual esté disponible -->
     <app-version [versionId]="versionActualId"></app-version>
   }
 </div>
