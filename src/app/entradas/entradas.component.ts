@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { EntradasService } from './entradas.service'
 import { FilterEntradasComponent } from '../filter-entradas/filter-entradas.component'
@@ -22,6 +22,7 @@ export class EntradasComponent implements OnInit {
     private entradasService: EntradasService,
     private http: HttpClient,
     private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -66,5 +67,18 @@ export class EntradasComponent implements OnInit {
           entrada.fechaCreacion >= filtros.fechaCreacion)
       )
     })
+  }
+
+  borrarEntrada(id: string): void{
+    console.log(this.entradas);
+    this.entradasService.deleteEntrada(id).subscribe({
+      next: () => {
+        this.entradas = this.entradas.filter((entrada) => entrada._id !== id)
+        this.entradasFiltradas = this.entradas
+      },
+      error: (err) => {
+        console.error('Error al borrar la entrada:', err)
+      },
+    });
   }
 }

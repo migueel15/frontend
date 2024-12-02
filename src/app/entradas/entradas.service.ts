@@ -20,4 +20,8 @@ export class EntradasService {
   getWikiName(wikiId: string): Observable<any> {
     return this.http.get("http://localhost:8000/wikis/" + wikiId);
   }
+
+  deleteEntrada(id: string): Observable<any>{
+    return this.http.delete(`${this.apiUrl}${id}`);
+  }
 }

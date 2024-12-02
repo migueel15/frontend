@@ -1,18 +1,21 @@
 <h1 class="text-xl p-4">Lista de entradas de la wiki {{ nombre_wiki }}</h1>
-
-<app-filter-entradas (filtroAplicado)="aplicarFiltro($event)" />
-
+<div class="filter-container flex justify-center">
+  <app-filter-entradas (filtroAplicado)="aplicarFiltro($event)" />
+</div>
 <div class="wiki-list mt-4 flex flex-col gap-4">
   <ul *ngIf="entradasFiltradas.length > 0; else sinResultados" class="space-y-4 w-full gap-4">
-    <li *ngFor="let entrada of entradasFiltradas" (click)="handleEntradaClick(entrada.idVersionActual)"
-      class="p-4 bg-white rounded shadow w-full">
-      <h2 class="text-xl font-semibold">{{ entrada.nombre }}</h2>
-      <p>{{ entrada.nombreUsuario }}</p>
-      <p>Fecha de creación: {{ entrada.fechaCreacion }}</p>
+    <li *ngFor="let entrada of entradasFiltradas" class="p-4 bg-white rounded shadow w-full flex justify-between items-center">
+      <div (click)="handleEntradaClick(entrada.idVersionActual)" class="flex-grow cursor-pointer">
+        <h2 class="text-xl font-semibold">{{ entrada.nombre }}</h2>
+        <p>{{ entrada.nombreUsuario }}</p>
+        <p>Fecha de creación: {{ entrada.fechaCreacion }}</p>
+      </div>
+      <button (click)="borrarEntrada(entrada._id)" class="bg-red-300 text-white px-4 py-1 rounded hover:bg-red-600" style="height: min-content;">
+        Borrar
+      </button>
     </li>
   </ul>
 </div>
-
 <ng-template #sinResultados>
   <h2 class="text-center text-gray-500">No se encontraron resultados</h2>
 </ng-template>
