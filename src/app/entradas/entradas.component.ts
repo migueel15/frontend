@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { EntradasService } from './entradas.service'
 import { FilterEntradasComponent } from '../filter-entradas/filter-entradas.component'
+import { BotonAtrasComponent } from "../boton-atras/boton-atras.component";
 
 @Component({
   selector: 'app-entradas',
   standalone: true,
-  imports: [CommonModule, FilterEntradasComponent],
+  imports: [CommonModule, FilterEntradasComponent, BotonAtrasComponent],
   templateUrl: './entradas.component.html',
   styleUrl: './entradas.component.scss',
 })
