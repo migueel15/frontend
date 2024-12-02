@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { NewWikiService } from './new-wiki.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { BotonAtrasComponent } from "../boton-atras/boton-atras.component";
+import { SubirImagenesComponent } from "../subir-imagenes/subir-imagenes.component";
 
 @Component({
   selector: 'app-new-wiki',
   standalone: true,
-  imports: [ReactiveFormsModule, BotonAtrasComponent],
+  imports: [ReactiveFormsModule, BotonAtrasComponent, SubirImagenesComponent],
   templateUrl: './new-wiki.component.html',
 })
 export class NewWikiComponent {
