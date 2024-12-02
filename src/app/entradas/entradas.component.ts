@@ -45,9 +45,11 @@ export class EntradasComponent implements OnInit {
     });
   }
 
-  handleEntradaClick(idVersion: any): void {
-    console.log('Entrada:', idVersion);
+  handleEntradaClick(versionId: any): void {
+    console.log('Entrada:', versionId);
+    this.router.navigate(["/entrada/", versionId]);
   }
+
   aplicarFiltro(filtros: any): void {
     console.log('Filtros:', filtros);
 
