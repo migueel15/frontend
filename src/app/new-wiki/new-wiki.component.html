@@ -12,6 +12,17 @@
     </div>
 
     <div class="mb-4">
+      <label for="imagen" class="block text-gray-700">Imagen (Opcional)</label>
+      <!-- <input
+        type="image"
+        id="imagen"
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+        formControlName="imagen"
+      /> -->
+      <app-subir-imagenes></app-subir-imagenes>
+    </div>
+
+    <div class="mb-4">
       <button
         type="submit"
         [disabled]="!wikiForm.valid"
