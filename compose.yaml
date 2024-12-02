@@ -1,8 +1,79 @@
+name: lawiki
+
+x-service-base: &service-base
+  build:
+    context: ../backend
+  env_file:
+    - ../backend/.env
+
 services:
   frontend:
     build:
       context: .
     environment:
       NODE_ENV: production
+    container_name: frontend
     ports:
       - 4200:4200
+
+  gateway:
+    <<: *service-base
+    container_name: gateway
+    ports:
+      - 8000:8000
+    depends_on:
+      - wikis
+      - entradas-versiones
+      - comentarios-valoraciones
+      - archivos
+      - notificaciones
+      - mapas
+
+  wikis:
+    <<: *service-base
+    build:
+      args:
+        SERVICE_PATH: services/wikis
+    container_name: wikis
+
+  entradas-versiones:
+    <<: *service-base
+    build:
+      args:
+        SERVICE_PATH: services/entradas_versiones
+    container_name: entradas_versiones
+
+  comentarios-valoraciones:
+    <<: *service-base
+    build:
+      args:
+        SERVICE_PATH: services/comentarios_valoraciones
+    container_name: comentarios_valoraciones
+
+  usuarios:
+    <<: *service-base
+    build:
+      args:
+        SERVICE_PATH: services/usuarios
+    container_name: usuarios
+
+  archivos:
+    <<: *service-base
+    build:
+      args:
+        SERVICE_PATH: services/archivos
+    container_name: archivos
+
+  notificaciones:
+    <<: *service-base
+    build:
+      args:
+        SERVICE_PATH: services/notificaciones
+    container_name: notificaciones
+
+  mapas:
+    <<: *service-base
+    build:
+      args:
+        SERVICE_PATH: services/mapas
+    container_name: mapas
