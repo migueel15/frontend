@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NewEntradaService } from './new-entrada.service';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-new-entrada',
@@ -16,8 +22,8 @@ export class NewEntradaComponent {
   constructor(
     private entradaService: NewEntradaService,
     private route: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private location: Location,
   ) {
     this.entradaForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -39,7 +45,7 @@ export class NewEntradaComponent {
   }
 
   volverAtras() {
-    this.router.navigate(['/']);
+    this.location.back();
   }
 
   crearEntrada() {
@@ -48,7 +54,7 @@ export class NewEntradaComponent {
       this.entradaService.createEntrada(entradaData).subscribe({
         next: (response) => {
           console.log('Entrada creada correctamente:', response);
-          this.router.navigate(['/']);
+          this.location.back();
         },
         error: (err) => {
           console.error('Error al crear la entrada:', err);
