@@ -5,12 +5,11 @@ import { CommonModule } from '@angular/common'
 import { EntradasService } from './entradas.service'
 import { FilterEntradasComponent } from '../filter-entradas/filter-entradas.component'
 import { BotonAtrasComponent } from "../boton-atras/boton-atras.component";
-import { BotonEditarComponent } from "../boton-editar/boton-editar.component";
 
 @Component({
   selector: 'app-entradas',
   standalone: true,
-  imports: [CommonModule, FilterEntradasComponent, BotonAtrasComponent, BotonEditarComponent],
+  imports: [CommonModule, FilterEntradasComponent, BotonAtrasComponent],
   templateUrl: './entradas.component.html',
   styleUrl: './entradas.component.scss',
 })
