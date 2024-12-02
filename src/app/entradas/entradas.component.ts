@@ -45,9 +45,9 @@ export class EntradasComponent implements OnInit {
     });
   }
 
-  handleEntradaClick(versionId: any): void {
-    console.log('Entrada:', versionId);
-    this.router.navigate(["/entrada/", versionId]);
+  handleEntradaClick(entradaId: string): void {
+    console.log('Entrada:', entradaId);
+    this.router.navigate(["/entrada/", entradaId]);
   }
 
   aplicarFiltro(filtros: any): void {
@@ -72,7 +72,7 @@ export class EntradasComponent implements OnInit {
   crearEntrada() {
     console.log('Crear entrada');
 
-    this.router.navigate([`/new_entrada/${this.wikiId}`]);
+    this.router.navigate([`/wiki/${this.wikiId}/new_entrada/`]);
   }
 
   borrarEntrada(id: string): void {

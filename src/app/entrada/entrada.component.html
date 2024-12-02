@@ -12,4 +12,9 @@
       <span>{{ fechaCreacion | date: "dd MMMM yyyy" }}</span>
     </div>
   </div>
+
+  @if (versionActualId) {
+    <!-- Espera a que el id de la versión actual esté disponible -->
+    <app-version [versionId]="versionActualId"></app-version>
+  }
 </div>

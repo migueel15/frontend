@@ -10,7 +10,7 @@ export const routes: Routes = [
   { path: "", component: WikisComponent },
   { path: "new_wiki", component: NewWikiComponent },
   { path: "wiki/:id", component: EntradasComponent },
-  { path: "new_entrada/:idWiki", component: NewEntradaComponent },
+  { path: "wiki/:idWiki/new_entrada", component: NewEntradaComponent },
   { path: "entrada/:id", component: EntradaComponent },
   // otras rutas
 ];
