@@ -1,26 +1,39 @@
 <!-- Botón de crear una nueva wiki -->
 <div class="crearWiki-button mt-4 flex justify-start" style="padding: 5px">
-  <button (click)="crearWiki()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+  <button
+    (click)="crearWiki()"
+    class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+  >
     Crear nueva wiki
   </button>
 </div>
 
-<app-barra-busqueda (busqueda)="onSearchTextChanged($event)"></app-barra-busqueda>
+<app-barra-busqueda
+  (busqueda)="onSearchTextChanged($event)"
+></app-barra-busqueda>
 
 <div class="wiki-list mt-4 flex flex-col gap-4">
-  <ul *ngIf="wikisFiltradas.length > 0; else sinResultados" class="space-y-4 w-full gap-4">
-    <li *ngFor="let wiki of wikisFiltradas" class="p-4 bg-white rounded shadow w-full flex justify-between">
-      <div (click)="handleWikiClick(wiki.id)" class="cursor-pointer flex-grow">
-        <h2 class="text-xl font-semibold">{{ wiki.nombre }}</h2>
-        <p>{{ wiki.descripcion }}</p>
-      </div>
-      <button (click)="borrarWiki(wiki.id)" class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-        Borrar
-      </button>
-    </li>
-  </ul>
+  @if (wikisFiltradas.length > 0) {
+    <ul class="w-full gap-4 space-y-4">
+      @for (wiki of wikisFiltradas; track wiki.id) {
+        <li class="flex w-full justify-between rounded bg-white p-4 shadow">
+          <div
+            (click)="handleWikiClick(wiki.id)"
+            class="flex-grow cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">{{ wiki.nombre }}</h2>
+            <p>{{ wiki.descripcion }}</p>
+          </div>
+          <button
+            (click)="borrarWiki(wiki.id)"
+            class="rounded bg-red-500 px-2 py-1 text-white hover:bg-red-600"
+          >
+            Borrar
+          </button>
+        </li>
+      }
+    </ul>
+  } @else {
+    <h2 class="text-center text-gray-500">No se encontraron resultados</h2>
+  }
 </div>
-
-<ng-template #sinResultados>
-  <h2 class="text-center text-gray-500">No se encontraron resultados</h2>
-</ng-template>
