@@ -10,9 +10,10 @@ export class NewWikiService {
 
   constructor(private http: HttpClient) {}
 
-  // Método para eliminar una wiki
   createWiki(wikiData: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log("URL de la API: ", this.apiUrl);
+    console.log(wikiData);
+     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.apiUrl,wikiData,{headers});
   }
 }
