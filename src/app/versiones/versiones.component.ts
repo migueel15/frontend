@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-versiones',
+  selector: "app-versiones",
   standalone: true,
   imports: [],
-  templateUrl: './versiones.component.html',
-  styleUrl: './versiones.component.scss'
+  templateUrl: "./versiones.component.html",
 })
-export class VersionesComponent {
-
-}
+export class VersionesComponent {}
