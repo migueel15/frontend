@@ -17,6 +17,16 @@ export class WikisService {
       .pipe(map((response) => response.wikis));
   }
 
+  // Método para obtener una wiki por su id
+  getWiki(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}${id}`);
+  }
+
+  //Metodo  para editar una wiki
+  editWiki(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}${id}`, data);
+  }
+
   // Método para eliminar una wiki
   deleteWiki(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}${id}`);
