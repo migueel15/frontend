@@ -38,14 +38,14 @@ export class NewVersionComponent implements OnInit {
     }
   }
 
-  actualizarVersion(idUsuario: string, idEntrada: string, contenido: string) {
+  actualizarVersion(id: string, idUsuario: string, idEntrada: string, contenido: string) {
     const updatedVersionData = {
       idUsuario: idUsuario,
       idEntrada: idEntrada,
       contenido: contenido,
     };
 
-    this.newVersionService.updateVersion(updatedVersionData).subscribe({
+    this.newVersionService.updateVersion(id, updatedVersionData).subscribe({
       next: (response) => {
         console.log('Versión actualizada correctamente:', response);
       },

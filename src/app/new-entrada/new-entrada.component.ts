@@ -72,6 +72,7 @@ export class NewEntradaComponent {
             const idEntrada = response.idEntrada;
             if (idEntrada) {
               this.newVersionComponent.actualizarVersion(
+                this.idVersion!,
                 entradaData.idUsuario,
                 idEntrada,
                 entradaData.version.contenido

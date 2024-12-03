@@ -22,9 +22,9 @@ export class NewVersionService {
   }
 
   // Método para actualizar una versión
-  updateVersion(versionData: any): Observable<any> {
+  updateVersion(id: string, versionData: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(this.apiUrl,versionData,{headers}).pipe(
+    return this.http.put(`${this.apiUrl}${id}`,versionData,{headers}).pipe(
         catchError((error) => {
             console.error("Error al actualizar la versión", error);
             return throwError(() => error);
