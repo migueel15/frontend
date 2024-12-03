@@ -66,6 +66,6 @@ export class WikisComponent implements OnInit {
   editarWiki(wikiId: string): void {
     console.log("Editar wiki con ID:", wikiId);
     // Lógica para redirigir o abrir un modal de edición
-    this.router.navigate(["/editar-wiki/", wikiId]); // Ejemplo de redirección
+    this.router.navigate(["/wiki/", wikiId, "editar"]);
   }
 }
