@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { catchError, Observable, throwError } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -12,5 +12,16 @@ export class VersionService {
 
   getVersionById(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}${id}`);
+  }
+
+  deleteVersionesByIdEntrada(idEntrada: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { idEntrada };
+    return this.http.delete(this.apiUrl, { headers, body }).pipe(
+        catchError((error) => {
+            console.error("Error al crear la versión", error);
+            return throwError(() => error);
+        })
+    );
   }
 }

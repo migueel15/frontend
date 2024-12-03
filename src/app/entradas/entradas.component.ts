@@ -4,6 +4,7 @@ import { CommonModule } from "@angular/common";
 import { EntradasService } from "./entradas.service";
 import { FilterEntradasComponent } from "../filter-entradas/filter-entradas.component";
 import { BotonAtrasComponent } from "../boton-atras/boton-atras.component";
+import { VersionService } from "../version/version.service";
 
 @Component({
   selector: "app-entradas",
@@ -19,6 +20,7 @@ export class EntradasComponent implements OnInit {
 
   constructor(
     private entradasService: EntradasService,
+    private versionService: VersionService,
     private route: ActivatedRoute,
     private router: Router,
   ) {}
@@ -76,15 +78,26 @@ export class EntradasComponent implements OnInit {
   }
 
   borrarEntrada(id: string): void {
-    this.entradasService.deleteEntrada(id).subscribe({
+    this.versionService.deleteVersionesByIdEntrada(id).subscribe({
       next: () => {
-        this.entradasFiltradas = this.entradasFiltradas.filter(
-          (entrada) => entrada.id !== id,
-        );
+        console.log(`Versiones asociadas a la entrada ${id} eliminadas correctamente`);
+
+        this.entradasService.deleteEntrada(id).subscribe({
+          next: () => {
+            console.log(`Entrada ${id} eliminada correctamente`);
+            this.entradasFiltradas = this.entradasFiltradas.filter(
+              (entrada) => entrada.id !== id
+            );
+          },
+          error: (err) => {
+            console.error("Error al borrar la entrada:", err);
+          },
+        });
       },
       error: (err) => {
-        console.error("Error al borrar la entrada:", err);
+        console.error("Error al borrar las versiones asociadas:", err);
       },
     });
   }
+
 }
