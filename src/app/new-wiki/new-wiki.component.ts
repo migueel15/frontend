@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NewWikiService } from './new-wiki.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { NewWikiService } from './new-wiki.service';
+import { SubirImagenesService } from '../subir-imagenes/subir-imagenes.service'; // Importa el servicio
 import { BotonAtrasComponent } from "../boton-atras/boton-atras.component";
 import { SubirImagenesComponent } from "../subir-imagenes/subir-imagenes.component";
 
@@ -13,11 +14,13 @@ import { SubirImagenesComponent } from "../subir-imagenes/subir-imagenes.compone
 })
 export class NewWikiComponent {
   wikiForm: FormGroup;
+  imageUrl: string = ''; // Variable para almacenar la URL
 
   constructor(
     private router: Router,
     private wiki: NewWikiService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private imagenUrl: SubirImagenesService // Inyecta el servicio
   ) {
     this.wikiForm = this.fb.group({
       nombre: ['', Validators.required]
@@ -31,9 +34,13 @@ export class NewWikiComponent {
   crearWiki() {
     if (this.wikiForm.valid) {
       const wikiData = this.wikiForm.value;
+      this.imageUrl = this.imagenUrl.getUrl();
+      // Agrega la URL de la imagen al formulario antes de enviar
+      wikiData.imagenUrl = this.imageUrl;
+
       this.wiki.createWiki(wikiData).subscribe({
         next: (response) => {
-          console.log('wiki creada correctamente:', response);
+          console.log('Wiki creada correctamente:', response);
           this.router.navigate(['/']);
         },
         error: (err) => {

@@ -1,39 +1,44 @@
-<!-- Botón de crear una nueva wiki -->
-<div class="crearWiki-button mt-4 flex justify-start" style="padding: 5px">
-  <button
-    (click)="crearWiki()"
-    class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-  >
-    Crear nueva wiki
-  </button>
-</div>
-<app-barra-busqueda
-  (busqueda)="onSearchTextChanged($event)"
-></app-barra-busqueda>
+  <!-- Botón de crear una nueva wiki -->
+  <div class="crearWiki-button mt-4 flex justify-start" style="padding: 5px">
+    <button
+      (click)="crearWiki()"
+      class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+    >
+      Crear nueva wiki
+    </button>
+  </div>
+  <app-barra-busqueda
+    (busqueda)="onSearchTextChanged($event)"
+  ></app-barra-busqueda>
 
 
-<div class="wiki-list mt-4 flex flex-col gap-4">
-  @if (wikisFiltradas.length > 0) {
-  <ul class="w-full gap-4 space-y-4">
-    @for (wiki of wikisFiltradas; track wiki.id) {
-    <li (click)="handleWikiClick(wiki.id)" class="flex w-full justify-between rounded bg-white p-4 shadow">
-      <div class="flex-grow cursor-pointer">
-        <h2 class="text-xl font-semibold">{{ wiki.nombre }}</h2>
-        <p>{{ wiki.descripcion }}</p>
-      </div>
-      <!-- Contenedor para el botón -->
-      <div class="flex items-center justify-end">
-        <app-boton-editar (click)="$event.stopPropagation(); editarWiki(wiki.id)"><!-- Evento al hacer click -->
-        </app-boton-editar>
-        <button (click)="$event.stopPropagation(); borrarWiki(wiki.id)"
-          class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" style="height: min-content">
-          Borrar
-        </button>
-      </div>
-    </li>
+  <div class="wiki-list mt-4 flex flex-col gap-4">
+    @if (wikisFiltradas.length > 0) {
+    <ul class="w-full gap-4 space-y-4">
+      @for (wiki of wikisFiltradas; track wiki.id) {
+      <li (click)="handleWikiClick(wiki.id)" class="flex w-full justify-between rounded bg-white p-4 shadow">
+        <div class="flex-grow cursor-pointer">
+          <h2 class="text-xl font-semibold">{{ wiki.nombre }}</h2>
+          <img
+            [src]="wiki.imagenUrl"
+            alt="Imagen de la wiki"
+            class="w-32 h-32 object-cover rounded"
+          />
+          <p>{{ wiki.descripcion }}</p>
+        </div>
+        <!-- Contenedor para el botón -->
+        <div class="flex items-center justify-end">
+          <app-boton-editar (click)="$event.stopPropagation(); editarWiki(wiki.id)"><!-- Evento al hacer click -->
+          </app-boton-editar>
+          <button (click)="$event.stopPropagation(); borrarWiki(wiki.id)"
+            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" style="height: min-content">
+            Borrar
+          </button>
+        </div>
+      </li>
+      }
+    </ul>
+    } @else {
+    <h2 class="text-center text-gray-500">No se encontraron resultados</h2>
     }
-  </ul>
-  } @else {
-  <h2 class="text-center text-gray-500">No se encontraron resultados</h2>
-  }
-</div>
+  </div>
