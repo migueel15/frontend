@@ -31,7 +31,7 @@ export class SubirImagenesComponent {
 
       try {
         const response = await fetch(
-          "http://localhost:8005/v2/archivos/subir",
+          "http://localhost:8000/archivos/subir",
           {
             method: "POST",
             body: formData,
