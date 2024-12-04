@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -9,19 +9,22 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { NewEntradaService } from './new-entrada.service';
 import { NewVersionComponent } from '../new-version/new-version.component';
+import { MapasComponent } from "../mapas/mapas.component";
 
 @Component({
   selector: 'app-new-entrada',
   standalone: true,
-  imports: [ReactiveFormsModule, NewVersionComponent],
+  imports: [CommonModule, ReactiveFormsModule, NewVersionComponent, MapasComponent],
   templateUrl: './new-entrada.component.html',
 })
 export class NewEntradaComponent {
   entradaForm: FormGroup;
   idWiki: string | null = null;
   idVersion: string | null = null;
+  mostrarMapa: boolean = false;
 
   @ViewChild(NewVersionComponent) newVersionComponent!: NewVersionComponent;
+  @ViewChild(MapasComponent) mapasComponent!: MapasComponent;
 
   constructor(
     private newEntradaService: NewEntradaService,
@@ -36,6 +39,12 @@ export class NewEntradaComponent {
       idWiki: ['', Validators.required],
       version: this.fb.group({
         contenido: ['', Validators.required]
+      }),
+      mapa: this.fb.group({
+        ubicacion: this.fb.group({
+          lat: [''],
+          lon: ['']
+        })
       })
     });
   }
@@ -77,6 +86,17 @@ export class NewEntradaComponent {
                 idEntrada,
                 entradaData.version.contenido
               );
+            }
+
+            const ubicacion = this.entradaForm.get('mapa.ubicacion')?.value;
+            if (ubicacion) {
+              this.mapasComponent.crearMapa();
+
+              this.mapasComponent.mapaCreated.subscribe((idMapa: string) => {
+                console.log('Mapa creado correctamente:', idMapa);
+
+                this.mapasComponent.actualizarMapa(idMapa, idEntrada);
+              });
             }
 
             this.location.back();
