@@ -57,6 +57,14 @@ export class NotificacionesComponent implements OnInit {
 
   toggleDesplegable(): void {
     this.mostrarDesplegable = !this.mostrarDesplegable;
+    if (this.mostrarDesplegable) {
+      if (this.notificacionesSinLeer > 0) {
+        this.filtroActual = 'pendientes';
+      } else {
+        this.filtroActual = 'todas';
+      }
+      this.filtrarNotificaciones(this.filtroActual);
+    }
   }
 
   filtrarNotificaciones(filtro: string): void {
