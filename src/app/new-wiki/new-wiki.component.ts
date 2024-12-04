@@ -55,6 +55,7 @@ export class NewWikiComponent {
         });
       }
     } else {
+      alert('Formulario no válido');
       console.log('Formulario no válido');
     }
   }
