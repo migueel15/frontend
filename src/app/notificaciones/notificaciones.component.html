@@ -1,0 +1,13 @@
+<div class="notificaciones-container">
+    <div class="campana" (click)="toggleDesplegable()">
+      <i class="fa fa-bell"></i>
+      <span *ngIf="notificacionesSinLeer > 0" class="contador">{{ notificacionesSinLeer }}</span>
+    </div>
+    <div class="desplegable" *ngIf="mostrarDesplegable">
+      <ul>
+        <li *ngFor="let notificacion of notificaciones" [class.no-leida]="!notificacion.leida" (click)="marcarComoLeida(notificacion)">
+          {{ notificacion.mensaje }}
+        </li>
+      </ul>
+    </div>
+  </div>

@@ -4,11 +4,12 @@ import { SubirImagenesComponent } from "./subir-imagenes/subir-imagenes.componen
 import { MapasComponent } from './mapas/mapas.component';
 import { WikisComponent } from './wikis/wikis.component';
 import { BarraNavegacionComponent } from './barra-navegacion/barra-navegacion.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BarraNavegacionComponent ],
+  imports: [RouterOutlet, BarraNavegacionComponent, NotificacionesComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

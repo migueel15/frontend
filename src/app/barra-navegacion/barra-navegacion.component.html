@@ -17,6 +17,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <app-notificaciones></app-notificaciones>
+        </li>
         @if (usuarioEnSesion()) {
             @if (usuarioEsAdmin()) {
                 <li class="nav-item">
@@ -24,11 +27,12 @@
                   </li>
             }
             <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true" href="#">Ver perfil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true" href="#">Cerrar sesión</a>
-              </li>
+              <a class="nav-link disabled" aria-disabled="true" href="#">Ver perfil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true" href="#">Cerrar sesión</a>
+            </li>
+              
         }
         @else {
         <li class="nav-item">
