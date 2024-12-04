@@ -3,11 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EntradaService } from './entrada.service';
 import { CommonModule } from '@angular/common';
 import { VersionComponent } from "../version/version.component";
+import { ComentariosComponent } from '../comentarios/comentarios.component';
 
 @Component({
   selector: 'app-entrada',
   standalone: true,
-  imports: [CommonModule, VersionComponent],
+  imports: [CommonModule, VersionComponent, ComentariosComponent],
   templateUrl: './entrada.component.html',
 })
 export class EntradaComponent implements OnInit {
