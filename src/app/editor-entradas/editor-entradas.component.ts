@@ -59,6 +59,7 @@ export class EditorEntradasComponent implements OnInit {
       .subscribe({
         next: (data) => {
           console.log("Entrada actualizada correctamente:", data);
+          this.router.navigate(["/entrada/", this.idEntrada]);
         },
         error: (err) => {
           console.error("Error al actualizar la entrada:", err);
@@ -77,44 +78,12 @@ export class EditorEntradasComponent implements OnInit {
       next: (data: any) => {
         console.log("Versión guardada correctamente:", data);
         this.actualizarVersionDeEntrada(data["idVersion"]);
-        this.router.navigate(["/entrada/", this.idEntrada]);
       },
       error: (err) => {
         console.error("Error al guardar la versión:", err);
       },
     });
   }
-
-  // imageUploadHandler = (
-  //   blobInfo: any,
-  //   progress: (percent: number) => void,
-  // ): Promise<string> => {
-  //   return new Promise<string>((resolve, reject) => {
-  //     const archivo = blobInfo.blob(); // Convertir a tipo File
-  //     const formData = new FormData();
-  //     formData.append("archivo", archivo);
-  //     fetch("http://localhost:8000/archivos/subir", {
-  //       method: "POST",
-  //       body: formData,
-  //     })
-  //       .then((response) => {
-  //         if (!response.ok) {
-  //           return response.json().then((data) => {
-  //             throw new Error(data.mensaje || "Error al subir la imagen");
-  //           });
-  //         }
-  //         return response.json();
-  //       })
-  //       .then((data) => {
-  //         console.log("Imagen subida correctamente:", data);
-  //         resolve(data.url);
-  //       })
-  //       .catch((err) => {
-  //         console.error("Error al subir la imagen:", err);
-  //         resolve("");
-  //       });
-  //   });
-  // };
 
   imageUploadHandler = (
     blobInfo: any,
@@ -141,6 +110,8 @@ export class EditorEntradasComponent implements OnInit {
     this.newContent = editor.getContent();
     if (this.newContent !== this.defaultContent) {
       this.guardarVersion();
+    } else {
+      this.router.navigate(["/entrada/", this.idEntrada]);
     }
   }
 
