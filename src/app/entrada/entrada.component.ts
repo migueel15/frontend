@@ -3,22 +3,14 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { EntradaService } from "./entrada.service";
 import { CommonModule } from "@angular/common";
 import { VersionComponent } from "../version/version.component";
-<<<<<<< HEAD
-import { ComentariosComponent } from '../comentarios/comentarios.component';
-=======
 import { BotonEditarComponent } from "../boton-editar/boton-editar.component";
->>>>>>> 795f5e11102d7283a800afe8af290d5a8c7eb0bf
+import { ComentariosComponent } from "../comentarios/comentarios.component";
 
 @Component({
   selector: "app-entrada",
   standalone: true,
-<<<<<<< HEAD
-  imports: [CommonModule, VersionComponent, ComentariosComponent],
-  templateUrl: './entrada.component.html',
-=======
-  imports: [CommonModule, VersionComponent, BotonEditarComponent],
+  imports: [CommonModule, VersionComponent, BotonEditarComponent, ComentariosComponent],
   templateUrl: "./entrada.component.html",
->>>>>>> 795f5e11102d7283a800afe8af290d5a8c7eb0bf
 })
 export class EntradaComponent implements OnInit {
   entradaId!: string;
