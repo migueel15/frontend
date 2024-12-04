@@ -17,6 +17,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class EditorEntradasComponent implements OnInit {
   curretVersion: any;
+  editorInstance: any;
   idEntrada: string = "";
   defaultContent: string = "";
   newContent: string = "";
@@ -59,7 +60,6 @@ export class EditorEntradasComponent implements OnInit {
       .subscribe({
         next: (data) => {
           console.log("Entrada actualizada correctamente:", data);
-          this.router.navigate(["/entrada/", this.idEntrada]);
         },
         error: (err) => {
           console.error("Error al actualizar la entrada:", err);
@@ -110,9 +110,9 @@ export class EditorEntradasComponent implements OnInit {
     this.newContent = editor.getContent();
     if (this.newContent !== this.defaultContent) {
       this.guardarVersion();
-    } else {
-      this.router.navigate(["/entrada/", this.idEntrada]);
     }
+    this.editorInstance.destroy();
+    this.router.navigate(["/entrada/", this.idEntrada]);
   }
 
   init: EditorComponent["init"] = {
@@ -126,6 +126,7 @@ export class EditorEntradasComponent implements OnInit {
     toolbar:
       "save image | undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link",
     setup: (editor) => {
+      this.editorInstance = editor;
       editor.ui.registry.addButton("customImagePicker", {
         icon: "image",
         onAction: () => {
