@@ -5,11 +5,18 @@ import { CommonModule } from "@angular/common";
 import { VersionComponent } from "../version/version.component";
 import { BotonEditarComponent } from "../boton-editar/boton-editar.component";
 import { ComentariosComponent } from "../comentarios/comentarios.component";
+import { BotonAtrasComponent } from "../boton-atras/boton-atras.component";
 
 @Component({
   selector: "app-entrada",
   standalone: true,
-  imports: [CommonModule, VersionComponent, BotonEditarComponent, ComentariosComponent],
+  imports: [
+    CommonModule,
+    VersionComponent,
+    BotonEditarComponent,
+    ComentariosComponent,
+    BotonAtrasComponent,
+  ],
   templateUrl: "./entrada.component.html",
 })
 export class EntradaComponent implements OnInit {
