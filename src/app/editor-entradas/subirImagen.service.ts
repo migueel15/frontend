@@ -10,10 +10,9 @@ export class SubirImagenesService {
 
   constructor(private http: HttpClient) { }
 
-  subirImagen(archivo: File): Observable<any> {
-    const formData = new FormData();
-    formData.append("archivo", archivo);
-
-    return this.http.post(this.apiUrl, formData);
+  subirImagen(file: File): Observable<any> {
+    const body = new FormData();
+    body.append("archivo", file);
+    return this.http.post(this.apiUrl, body);
   }
 }
