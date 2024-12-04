@@ -1,5 +1,5 @@
-<div class="rounded-lg border border-gray-200 bg-gray-50 p-4">
-  <p class="text-gray-700">{{ contenido }}</p>
+<div id="contenedorHtml" class="rounded-lg border border-gray-200 bg-gray-50 p-4">
+  <div class="text-gray-700" [innerHTML]="contenidoSeguro"></div>
 </div>
 
 <div class="mt-4 flex justify-end text-sm text-gray-600">
