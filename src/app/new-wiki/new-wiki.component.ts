@@ -5,6 +5,7 @@ import { NewWikiService } from './new-wiki.service';
 import { SubirImagenesService } from '../subir-imagenes/subir-imagenes.service'; // Importa el servicio
 import { BotonAtrasComponent } from "../boton-atras/boton-atras.component";
 import { SubirImagenesComponent } from "../subir-imagenes/subir-imagenes.component";
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-new-wiki',
@@ -15,6 +16,7 @@ import { SubirImagenesComponent } from "../subir-imagenes/subir-imagenes.compone
 export class NewWikiComponent {
   wikiForm: FormGroup;
   imageUrl: string = ''; // Variable para almacenar la URL
+  mensaje: string = ''; // Variable para mostrar mensaje de error
 
   constructor(
     private router: Router,
@@ -37,16 +39,21 @@ export class NewWikiComponent {
       this.imageUrl = this.imagenUrl.getUrl();
       // Agrega la URL de la imagen al formulario antes de enviar
       wikiData.imagenUrl = this.imageUrl;
-
-      this.wiki.createWiki(wikiData).subscribe({
-        next: (response) => {
-          console.log('Wiki creada correctamente:', response);
-          this.router.navigate(['/']);
-        },
-        error: (err) => {
-          console.error('Error al crear la wiki:', err);
-        },
-      });
+      if (this.imageUrl == ""){
+        this.mensaje = 'Debes subir una imagen';
+        alert(this.mensaje);
+      }
+      else{
+        this.wiki.createWiki(wikiData).subscribe({
+          next: (response) => {
+            console.log('Wiki creada correctamente:', response);
+            this.router.navigate(['/']);
+          },
+          error: (err) => {
+            console.error('Error al crear la wiki:', err);
+          },
+        });
+      }
     } else {
       console.log('Formulario no válido');
     }

@@ -1,9 +1,15 @@
 <h1 class="p-4 text-xl">Lista de entradas de la wiki {{ nombre_wiki }}</h1>
+
+<div #imagen class="flex justify-center my-4"> 
+  <img [src]="imagenUrl" alt="Imagen de la wiki {{nombre_wiki}}" class="h-64 w-64 object-cover shadow-lg">  
+</div>
+
 <div class="crearEntrada-button mt-4 flex justify-start" style="padding: 5px">
   <button (click)="crearEntrada()" class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
     Crear entrada
   </button>
 </div>
+
 <div class="filter-container flex justify-center">
   <app-filter-entradas (filtroAplicado)="aplicarFiltro($event)" />
 </div>

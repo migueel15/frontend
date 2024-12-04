@@ -17,6 +17,7 @@ export class EntradasComponent implements OnInit {
   entradas: any[] = [];
   entradasFiltradas: any[] = [];
   nombre_wiki: string = "";
+  imagenUrl: string = "";
 
   constructor(
     private entradasService: EntradasService,
@@ -31,6 +32,8 @@ export class EntradasComponent implements OnInit {
     this.entradasService.getWikiName(this.wikiId).subscribe({
       next: (data) => {
         this.nombre_wiki = data["nombre"];
+        this.imagenUrl = data["imagenUrl"];
+        console.log("URL de la imagen:", this.imagenUrl);
       },
       error: (err) => {
         console.error("Error al obtener el nombre de la wiki:", err);
