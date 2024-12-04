@@ -1,18 +1,11 @@
 <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-      <img src="/favicon.ico" alt="" class="d-inline-block align-text-top"/>
-      laWiki
+  <div class="container-fluid flex justify-center align-middle">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/faviconCircular.ico" alt="" class="d-inline-block align-text-top me-2 w-12" />
+      <span>laWiki</span>
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -21,27 +14,25 @@
           <app-notificaciones></app-notificaciones>
         </li>
         @if (usuarioEnSesion()) {
-            @if (usuarioEsAdmin()) {
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true" href="#">Administrar usuarios</a>
-                  </li>
-            }
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true" href="#">Ver perfil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true" href="#">Cerrar sesión</a>
-            </li>
-              
+        @if (usuarioEsAdmin()) {
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true" href="#">Administrar usuarios</a>
+        </li>
         }
-        @else {
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true" href="#">Ver perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true" href="#">Cerrar sesión</a>
+        </li>
+        } @else {
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true" href="#">Registrarse</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true" href="#">Iniciar sesión</a>
         </li>
-    }
+        }
       </ul>
     </div>
   </div>
