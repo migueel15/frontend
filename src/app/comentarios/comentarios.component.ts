@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ComentariosService } from "./comentarios.service";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 import {
   FormBuilder,
   FormGroup,
@@ -14,6 +14,7 @@ import {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: "./comentarios.component.html",
+  providers: [DatePipe],
 })
 export class ComentariosComponent {
   comentarioForm: FormGroup;
@@ -24,6 +25,7 @@ export class ComentariosComponent {
     private route: ActivatedRoute,
     private comentariosService: ComentariosService,
     private fb: FormBuilder,
+    private datePipe: DatePipe,
   ) {
     this.comentarioForm = this.fb.group({
       contenido: ["", Validators.required],
@@ -62,5 +64,9 @@ export class ComentariosComponent {
         },
       });
     }
+  }
+
+  formatearFecha(fecha: string): string {
+    return this.datePipe.transform(fecha, "dd/MM/yyyy HH:mm") || "";
   }
 }
