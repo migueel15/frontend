@@ -34,6 +34,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         margin-bottom: 15px;
+        z-index: 1;
 
         &:hover {
             background-color: #f0f8ff;

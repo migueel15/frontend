@@ -4,10 +4,27 @@
       <span *ngIf="notificacionesSinLeer > 0" class="contador">{{ notificacionesSinLeer }}</span>
     </div>
     <div class="desplegable" *ngIf="mostrarDesplegable">
+      <h3 class="titulo">Notificaciones</h3>
+      <button class="limpiar-notificaciones" (click)="limpiarNotificaciones()">Limpiar</button>
+      <div class="filtros">
+        <button class="filtro" (click)="filtrarNotificaciones('todas')">Todas</button>
+        <div class="fila-inferior">
+          <button class="filtro" (click)="filtrarNotificaciones('pendientes')">Pendientes</button>
+          <button class="filtro" (click)="filtrarNotificaciones('leidas')">Leídas</button>
+        </div>
+      </div>
+      <ng-container *ngIf="notificaciones.length > 0; else noNotificaciones"></ng-container>
       <ul>
-        <li *ngFor="let notificacion of notificaciones" [class.no-leida]="!notificacion.leida" (click)="marcarComoLeida(notificacion)">
-          {{ notificacion.mensaje }}
+        <li *ngFor="let notificacion of notificacionesFiltradas" [class.no-leida]="!notificacion.is_read">
+          <div class="notificacion-contenido" (click)="redirigirEntrada(notificacion)">
+            <div class="notificacion-mensaje">{{ notificacion.message }}</div>
+            <div class="notificacion-fecha">{{ notificacion.timestamp | date: 'short' }}</div>
+          </div>
+          <button class="borrar-notificacion mb-10" (click)="eliminarNotificacion(notificacion, $event)">x</button>
         </li>
       </ul>
+      <ng-template #noNotificaciones>
+        <div class="no-notificaciones">No hay notificaciones</div>
+      </ng-template>
     </div>
   </div>
