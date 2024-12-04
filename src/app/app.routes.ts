@@ -5,9 +5,9 @@ import { NewWikiComponent } from "./new-wiki/new-wiki.component";
 import { EntradasComponent } from "./entradas/entradas.component";
 import { NewEntradaComponent } from "./new-entrada/new-entrada.component";
 import { EntradaComponent } from "./entrada/entrada.component";
-import { VersionesComponent } from "./versiones/versiones.component";
 import { EditorWikiComponent } from "./editar-wiki/editar-wiki.component";
 import { EditorEntradasComponent } from "./editor-entradas/editor-entradas.component";
+import { HistorialVersionesComponent } from "./historial-versiones/historial-versiones.component";
 
 export const routes: Routes = [
   { path: "", component: WikisComponent },
@@ -17,7 +17,8 @@ export const routes: Routes = [
   { path: "wiki/:idWiki/editar", component: EditorWikiComponent },
   { path: "entrada/:id", component: EntradaComponent },
   { path: "entrada/:id/editar", component: EditorEntradasComponent },
-  { path: "entrada/:id/versiones", component: VersionesComponent },
+  { path: "entrada/:id/historial", component: HistorialVersionesComponent},
+  { path: "**", redirectTo: "" },
   // otras rutas
 ];
 

@@ -42,7 +42,7 @@ export class EntradaComponent implements OnInit {
 
   verVersiones() {
     console.log("Ver historial de versiones");
-    this.router.navigate([`/entrada/${this.entradaId}/versiones/`]);
+    this.router.navigate([`/entrada/${this.entradaId}/historial/`]);
   }
 
   editarEntrada() {
