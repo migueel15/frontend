@@ -10,7 +10,6 @@ import { BotonEditarComponent } from "../boton-editar/boton-editar.component";
   standalone: true,
   imports: [CommonModule, BarraBusquedaComponent, BotonEditarComponent],
   templateUrl: "./wikis.component.html",
-  styleUrls: ["./wikis.component.scss"],
 })
 export class WikisComponent implements OnInit {
   wikis: any[] = [];

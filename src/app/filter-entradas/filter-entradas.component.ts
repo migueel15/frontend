@@ -5,8 +5,7 @@ import { FormsModule } from "@angular/forms";
   selector: "app-filter-entradas",
   standalone: true,
   imports: [FormsModule],
-  templateUrl: "./filter-entradas.component.html",
-  styleUrl: "./filter-entradas.component.scss",
+  templateUrl: "./filter-entradas.component.html"
 })
 export class FilterEntradasComponent {
   filtro = {
