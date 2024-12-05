@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { NgIf } from "@angular/common";
 import { EditorComponent, TINYMCE_SCRIPT_SRC } from "@tinymce/tinymce-angular";
 import { SubirImagenesService } from "./subirImagen.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -8,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
 @Component({
   selector: "app-editor-entradas",
   standalone: true,
-  imports: [EditorComponent],
+  imports: [EditorComponent, NgIf],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: "tinymce/tinymce.min.js" },
   ],
@@ -16,6 +17,7 @@ import { HttpClient } from "@angular/common/http";
   styleUrl: "./editor-entradas.component.scss",
 })
 export class EditorEntradasComponent implements OnInit {
+  loading = true;
   curretVersion: any;
   editorInstance: any;
   idEntrada: string = "";
@@ -28,7 +30,7 @@ export class EditorEntradasComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-  ) { }
+  ) {}
 
   //init
   ngOnInit(): void {
@@ -39,9 +41,11 @@ export class EditorEntradasComponent implements OnInit {
         console.log("Contenido de la entrada:", version);
         this.curretVersion = version;
         this.defaultContent = version.contenido;
+        this.loading = false;
       },
       error: (err) => {
         console.error("Error al obtener el contenido de la entrada:", err);
+        this.loading = false;
       },
     });
   }
@@ -117,6 +121,7 @@ export class EditorEntradasComponent implements OnInit {
 
   init: EditorComponent["init"] = {
     license_key: "gpl",
+    height: "100vh",
     plugins: "lists link image table code help wordcount",
     images_upload_handler: this.imageUploadHandler,
     image_list: [
