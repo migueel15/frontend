@@ -5,6 +5,7 @@ import { EntradasService } from './entradas.service'
 import { FilterEntradasComponent } from '../filter-entradas/filter-entradas.component'
 import { BotonAtrasComponent } from '../boton-atras/boton-atras.component'
 import { VersionService } from '../version/version.service'
+import { MapasService } from '../mapas/mapas.service'
 
 @Component({
   selector: 'app-entradas',
@@ -23,6 +24,7 @@ export class EntradasComponent implements OnInit {
   constructor(
     private entradasService: EntradasService,
     private versionService: VersionService,
+    private mapasService: MapasService,
     private route: ActivatedRoute,
     private router: Router,
     private datePipe: DatePipe,
@@ -88,6 +90,24 @@ export class EntradasComponent implements OnInit {
         console.log(
           `Versiones asociadas a la entrada ${id} eliminadas correctamente`,
         )
+
+        this.mapasService.getMapaByEntradaId(id).subscribe({
+          next: (mapa) => {
+            if (mapa) {
+              this.mapasService.deleteMapa(mapa._id).subscribe({
+                next: () => {
+                  console.log(`Mapa asociado a la entrada ${id} eliminado correctamente`);
+                },
+                error: (err) => {
+                  console.error('Error al eliminar el mapa asociado:', err);
+                }
+              });
+            }
+          },
+          error: (err) => {
+            console.error('Error al buscar el mapa asociado:', err);
+          }
+        });
 
         this.entradasService.deleteEntrada(id).subscribe({
           next: () => {

@@ -52,4 +52,13 @@ export class MapasService {
   getMapaByEntradaId(entradaId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}entrada/${entradaId}`);
   }
+
+  deleteMapa(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}${id}`).pipe(
+      catchError((error) => {
+        console.error("Error al eliminar el mapa", error);
+        return throwError(() => error);
+      })
+    );
+  }
 }
