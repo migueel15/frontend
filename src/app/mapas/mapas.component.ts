@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as L from 'leaflet';
 import { MapasService } from './mapas.service';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-mapas',
@@ -16,7 +16,7 @@ export class MapasComponent implements OnInit {
   @Output() mapaCreated = new EventEmitter<string>();
   private mapa: L.Map | undefined;
 
-  constructor(private mapasService: MapasService) {}
+  constructor(private mapasService: MapasService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.mapa = L.map('map').setView([39.3260685, -4.8379791], 5);
@@ -24,6 +24,12 @@ export class MapasComponent implements OnInit {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors',
     }).addTo(this.mapa);
+
+    const lat = this.ubicacion.get('lat')?.value;
+    const lon = this.ubicacion.get('lon')?.value;
+    if (lat && lon) {
+      this.actualizarMapaEnVista(lat, lon);
+    }
   }
 
   buscar(inputValue: string): void {
@@ -55,10 +61,12 @@ export class MapasComponent implements OnInit {
       L.marker([lat, lon]).addTo(this.mapa);
       this.mapa.setView([lat, lon], 13);
 
-      this.ubicacion.patchValue({
-        lat: lat,
-        lon: lon,
-      });
+      if (this.mostrarBusqueda) {
+        this.ubicacion.patchValue({
+          lat: lat,
+          lon: lon,
+        });
+      }
     }
   }
 
