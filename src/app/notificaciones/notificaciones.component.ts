@@ -96,11 +96,13 @@ export class NotificacionesComponent implements OnInit {
   marcarComoNoLeida(notificacion: any, event: Event): void {
     event.stopPropagation();
     if (notificacion.is_read) {
-      this.notificacionesService.markAsRead(notificacion._id).subscribe(() => {
-        notificacion.is_read = false;
-        this.notificacionesSinLeer++;
-        this.filtrarNotificaciones(this.filtroActual);
-      });
+      this.notificacionesService
+        .markAsUnread(notificacion._id)
+        .subscribe(() => {
+          notificacion.is_read = false;
+          this.notificacionesSinLeer++;
+          this.filtrarNotificaciones(this.filtroActual);
+        });
     }
   }
 
