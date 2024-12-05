@@ -4,7 +4,10 @@
 
     <div class="flex gap-2">
       <app-boton-editar (click)="$event.stopPropagation(); editarEntrada()" />
-      <button (click)="verVersiones()" class="rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600">
+      <button
+        (click)="verVersiones()"
+        class="rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
+      >
         Historial de versiones
       </button>
     </div>
@@ -24,7 +27,14 @@
 
   <!-- Espera a que el id de la versión actual esté disponible -->
   @if (versionActualId) {
-  <app-version [versionId]="versionActualId"></app-version>
+    <app-version [versionId]="versionActualId"></app-version>
+  }
+
+  @if (tieneMapa) {
+    <app-mapas
+      [entradaId]="entradaId"
+      [ubicacion]="$any(entradaForm.get('ubicacion'))"
+    ></app-mapas>
   }
 </div>
 

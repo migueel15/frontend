@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HistorialVersionesService } from './historial-versiones.service';
 
 @Component({
@@ -13,16 +13,15 @@ export class HistorialVersionesComponent implements OnInit {
 
   entrada: any = {};
   versiones: any[] = [];
-  
+
   constructor(
     private historialVersionesService: HistorialVersionesService,
-    private router: Router,
     private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
     let entradaId = this.route.snapshot.paramMap.get('id')!
-    
+
     this.historialVersionesService.getEntradaById(entradaId).subscribe({
       next: (data) => {
         this.entrada = data;
@@ -69,7 +68,7 @@ export class HistorialVersionesComponent implements OnInit {
       minute: '2-digit',
     }).format(date);
   }
-  
+
   // verVersion(idVersion: any) {
   // }
 }

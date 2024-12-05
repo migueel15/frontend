@@ -48,4 +48,8 @@ export class MapasService {
         })
     );
   }
+
+  getMapaByEntradaId(entradaId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}entrada/${entradaId}`);
+  }
 }
