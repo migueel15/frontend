@@ -24,7 +24,7 @@ export class NewEntradaComponent {
   mostrarMapa: boolean = false;
 
   @ViewChild(NewVersionComponent) newVersionComponent!: NewVersionComponent;
-  @ViewChild(MapasComponent) mapasComponent!: MapasComponent;
+  @ViewChild(MapasComponent, { static: false }) mapasComponent!: MapasComponent;
 
   constructor(
     private newEntradaService: NewEntradaService,
@@ -89,7 +89,7 @@ export class NewEntradaComponent {
             }
 
             const ubicacion = this.entradaForm.get('mapa.ubicacion')?.value;
-            if (ubicacion) {
+            if (ubicacion && this.mapasComponent) {
               this.mapasComponent.crearMapa();
 
               this.mapasComponent.mapaCreated.subscribe((idMapa: string) => {
