@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -10,11 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 import { NewEntradaService } from './new-entrada.service';
 import { NewVersionComponent } from '../new-version/new-version.component';
 import { MapasComponent } from "../mapas/mapas.component";
+import { BotonAtrasComponent } from "../boton-atras/boton-atras.component";
 
 @Component({
   selector: 'app-new-entrada',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NewVersionComponent, MapasComponent],
+  imports: [CommonModule, ReactiveFormsModule, NewVersionComponent, MapasComponent, BotonAtrasComponent],
   templateUrl: './new-entrada.component.html',
 })
 export class NewEntradaComponent {
@@ -25,12 +26,12 @@ export class NewEntradaComponent {
 
   @ViewChild(NewVersionComponent) newVersionComponent!: NewVersionComponent;
   @ViewChild(MapasComponent, { static: false }) mapasComponent!: MapasComponent;
+  @ViewChild(BotonAtrasComponent) botonAtrasComponent!: BotonAtrasComponent;
 
   constructor(
     private newEntradaService: NewEntradaService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private location: Location,
   ) {
     this.entradaForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -57,10 +58,6 @@ export class NewEntradaComponent {
     } else {
       console.error('idWiki no proporcionado');
     }
-  }
-
-  volverAtras() {
-    this.location.back();
   }
 
   crearEntrada() {
@@ -99,7 +96,8 @@ export class NewEntradaComponent {
               });
             }
 
-            this.location.back();
+            this.botonAtrasComponent.ruta = `/wiki/${this.idWiki}`;
+            this.botonAtrasComponent.volverAtras();
           },
           error: (err) => {
             console.error('Error al crear la entrada:', err);

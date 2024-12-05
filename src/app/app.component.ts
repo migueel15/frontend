@@ -6,8 +6,7 @@ import { BarraNavegacionComponent } from "./barra-navegacion/barra-navegacion.co
   selector: "app-root",
   standalone: true,
   imports: [RouterOutlet, BarraNavegacionComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   title = "laWiki";

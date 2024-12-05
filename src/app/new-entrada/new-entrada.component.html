@@ -45,6 +45,7 @@
       >
         <app-mapas
           [ubicacion]="$any(entradaForm.get('mapa.ubicacion'))"
+          [mostrarBusqueda]="true"
         ></app-mapas>
       </div>
     </div>
@@ -61,12 +62,4 @@
   </form>
 </div>
 
-<!-- Botón para volver atrás -->
-<div class="relative min-h-screen p-10">
-  <button
-    (click)="volverAtras()"
-    class="fixed bottom-4 rounded bg-blue-500 px-6 py-2 font-bold text-white shadow-lg hover:bg-blue-700"
-  >
-    Volver
-  </button>
-</div>
+<app-boton-atras ruta="/wiki/{{ idWiki }}"></app-boton-atras>

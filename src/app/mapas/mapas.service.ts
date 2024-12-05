@@ -10,8 +10,23 @@ export class MapasService {
 
   constructor(private http: HttpClient) {}
 
-  searchByQuery(query: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}?q=${query}`);
+  searchByQuery(params: { query?: string; lat?: number; lon?: number }): Observable<any> {
+    let url = this.apiUrl;
+
+    if (params.query) {
+      url += `?q=${encodeURIComponent(params.query)}`;
+    } else if (params.lat !== undefined && params.lon !== undefined) {
+      url += `?lat=${params.lat}&lon=${params.lon}`;
+    } else {
+      throw new Error("Debe proporcionar una 'query' o 'lat' y 'lon'");
+    }
+
+    return this.http.get<any>(url).pipe(
+      catchError((error) => {
+        console.error("Error al buscar ubicación:", error);
+        return throwError(() => error);
+      })
+    );
   }
 
   createMapa(mapaData: any): Observable<any> {

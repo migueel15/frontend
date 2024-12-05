@@ -11,32 +11,53 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class MapasComponent implements OnInit {
   @Input() ubicacion!: FormGroup;
+  @Input() entradaId: string | undefined;
+  @Input() mostrarBusqueda: boolean = false;
   @Output() mapaCreated = new EventEmitter<string>();
   private mapa: L.Map | undefined;
 
   constructor(private mapasService: MapasService) {}
 
   ngOnInit(): void {
-    this.mapa = L.map('map').setView([36.7213028, -4.4216366], 13);
+    this.mapa = L.map('map').setView([39.3260685, -4.8379791], 5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors',
     }).addTo(this.mapa);
   }
 
-  buscar(query: string): void {
-    if (query) {
-      this.mapasService.searchByQuery(query).subscribe((response) => {
+  buscar(inputValue: string): void {
+    if (this.esCoordenadas(inputValue)) {
+      const [lat, lon] = inputValue.split(',').map(coord => parseFloat(coord.trim()));
+      this.mapasService.searchByQuery({ lat, lon }).subscribe((response) => {
         const coords = response.data;
         if (coords) {
-          L.marker([coords.lat, coords.lon]).addTo(this.mapa!);
-          this.mapa!.setView([coords.lat, coords.lon], 13);
-
-          this.ubicacion.patchValue({
-            lat: coords.lat,
-            lon: coords.lon,
-          });
+          this.actualizarMapaEnVista(coords.lat, coords.lon);
         }
+      });
+    } else {
+      this.mapasService.searchByQuery({ query: inputValue }).subscribe((response) => {
+        const coords = response.data;
+        if (coords) {
+          this.actualizarMapaEnVista(coords.lat, coords.lon);
+        }
+      });
+    }
+  }
+
+  private esCoordenadas(value: string): boolean {
+    const coordRegex = /^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/;
+    return coordRegex.test(value);
+  }
+
+  private actualizarMapaEnVista(lat: number, lon: number): void {
+    if (this.mapa) {
+      L.marker([lat, lon]).addTo(this.mapa);
+      this.mapa.setView([lat, lon], 13);
+
+      this.ubicacion.patchValue({
+        lat: lat,
+        lon: lon,
       });
     }
   }

@@ -5,7 +5,6 @@ import { NewWikiService } from './new-wiki.service';
 import { SubirImagenesService } from '../subir-imagenes/subir-imagenes.service'; // Importa el servicio
 import { BotonAtrasComponent } from "../boton-atras/boton-atras.component";
 import { SubirImagenesComponent } from "../subir-imagenes/subir-imagenes.component";
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-new-wiki',
@@ -27,10 +26,6 @@ export class NewWikiComponent {
     this.wikiForm = this.fb.group({
       nombre: ['', Validators.required]
     });
-  }
-
-  volverAtras() {
-    this.router.navigate(['/']);
   }
 
   crearWiki() {

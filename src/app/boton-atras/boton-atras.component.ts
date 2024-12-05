@@ -5,8 +5,7 @@ import { Router } from "@angular/router";
   selector: "app-boton-atras",
   standalone: true,
   imports: [],
-  templateUrl: "./boton-atras.component.html",
-  styleUrl: "./boton-atras.component.scss",
+  templateUrl: "./boton-atras.component.html"
 })
 export class BotonAtrasComponent {
   @Input()
