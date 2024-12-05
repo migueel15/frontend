@@ -2,13 +2,12 @@
   <div class="mb-4 flex items-center justify-between">
     <h2 class="text-3xl font-bold text-gray-900">{{ nombreEntrada }}</h2>
 
-    <app-boton-editar (click)="$event.stopPropagation(); editarEntrada()" />
-    <button
-      (click)="verVersiones()"
-      class="rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
-    >
-      Historial de versiones
-    </button>
+    <div class="flex gap-2">
+      <app-boton-editar (click)="$event.stopPropagation(); editarEntrada()" />
+      <button (click)="verVersiones()" class="rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600">
+        Historial de versiones
+      </button>
+    </div>
   </div>
 
   <div class="flex justify-between text-sm text-gray-600">
