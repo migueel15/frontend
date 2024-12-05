@@ -60,6 +60,16 @@ export class NewEntradaComponent {
     }
   }
 
+  toggleMapa(): void {
+    this.mostrarMapa = !this.mostrarMapa;
+
+    if (this.mostrarMapa) {
+      this.entradaForm.get('mapa')?.enable();
+    } else {
+      this.entradaForm.get('mapa')?.disable();
+    }
+  }
+
   crearEntrada() {
     if (this.entradaForm.valid) {
       const entradaData = this.entradaForm.value;
