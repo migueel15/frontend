@@ -30,7 +30,7 @@ export class EditorEntradasComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-  ) {}
+  ) { }
 
   //init
   ngOnInit(): void {
@@ -64,6 +64,8 @@ export class EditorEntradasComponent implements OnInit {
       .subscribe({
         next: (data) => {
           console.log("Entrada actualizada correctamente:", data);
+          this.editorInstance.destroy();
+          this.router.navigate(["/entrada/", this.idEntrada]);
         },
         error: (err) => {
           console.error("Error al actualizar la entrada:", err);
@@ -115,8 +117,6 @@ export class EditorEntradasComponent implements OnInit {
     if (this.newContent !== this.defaultContent) {
       this.guardarVersion();
     }
-    this.editorInstance.destroy();
-    this.router.navigate(["/entrada/", this.idEntrada]);
   }
 
   init: EditorComponent["init"] = {
