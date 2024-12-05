@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class ComentariosService {
   private apiUrl = "http://localhost:8000/comentarios/";
+  private apiUrlUsuarios = "http://localhost:8000/usuarios/";
 
   constructor(private http: HttpClient) {}
 
@@ -15,6 +16,10 @@ export class ComentariosService {
     return this.http
       .get<{ comentarios: any[] }>(this.apiUrl + "?idEntrada=" + idEntrada)
       .pipe(map((response) => response.comentarios));
+  }
+
+  getUsuarioById(usuarioId: string) {
+    return this.http.get(`${this.apiUrlUsuarios}${usuarioId}`);
   }
 
   crearComentario(comentarioData: any): Observable<any> {

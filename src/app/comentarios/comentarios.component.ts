@@ -37,6 +37,7 @@ export class ComentariosComponent {
     this.comentariosService.getComentarios(this.entradaId).subscribe({
       next: (data) => {
         this.comentarios = data;
+        this.getUsuarios(data);
         console.log("Comentarios:", this.comentarios);
       },
       error: (err) => {
@@ -45,11 +46,27 @@ export class ComentariosComponent {
     });
   }
 
+  getUsuarios(data: any[]): void {
+    console.log("getUsuarios");
+    for (let comentario of data) {
+      console.log(comentario + " " + comentario['idUsuario']);
+      this.comentariosService.getUsuarioById(comentario['idUsuario']).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          comentario['nombreUsuario'] = data['name'];
+        },
+        error: (err: any) => {
+          console.error('Error al obtener el usuario:', err);
+        },
+      });
+    }
+  }
+
   crearComentario(): void {
     if (this.comentarioForm.valid) {
       const comentarioData = this.comentarioForm.value;
       comentarioData.idEntrada = this.entradaId;
-      comentarioData.idUsuario = "64bda41e8e9f1a7a0e5c2e3f"; // ID de usuario fijo
+      comentarioData.idUsuario = "673d2a12ada998325690b320"; // ID de usuario fijo
 
       this.comentariosService.crearComentario(comentarioData).subscribe({
         next: (response) => {

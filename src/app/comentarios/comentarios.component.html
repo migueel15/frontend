@@ -15,7 +15,7 @@
   </div>
 
   <div *ngFor="let comentario of comentarios" class="bg-white rounded-lg shadow-lg p-6 mb-4">
-    <h5 class="text-sm text-gray-500">Autor: {{ comentario.idUsuario }}</h5>
+    <h5 class="text-sm text-gray-500">Autor: {{ comentario.nombreUsuario }}</h5>
     <h5 class="text-sm text-gray-500">
       Fecha: {{ formatearFecha(comentario.fechaCreacion) }}
     </h5>
