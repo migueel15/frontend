@@ -3,6 +3,7 @@ import { NotificacionesService } from './notificaciones.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-notificaciones',
@@ -22,6 +23,7 @@ export class NotificacionesComponent implements OnInit {
   constructor(
     private notificacionesService: NotificacionesService,
     private router: Router,
+    private http: HttpClient,
   ) {
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -107,14 +109,39 @@ export class NotificacionesComponent implements OnInit {
   }
 
   redirigirEntrada(notificacion: any): void {
-    if (!notificacion.is_read) {
-      this.notificacionesService.markAsRead(notificacion._id).subscribe(() => {
-        notificacion.is_read = true;
-        this.notificacionesSinLeer--;
-      });
-    }
-    this.router.navigate([`/entrada/${notificacion.entrada_id}`]);
+    this.http.get(`/api/entradas/${notificacion.entrada_id}`).subscribe({
+      next: () => {
+        if (!notificacion.is_read) {
+          this.notificacionesService
+            .markAsRead(notificacion._id)
+            .subscribe(() => {
+              notificacion.is_read = true;
+              this.notificacionesSinLeer--;
+            });
+        }
+        this.router.navigate([`/entrada/${notificacion.entrada_id}`]);
+      },
+      error: () => {
+        this.notificacionesService
+          .markAsRead(notificacion._id)
+          .subscribe(() => {
+            notificacion.is_read = true;
+            this.notificacionesSinLeer--;
+            this.filtrarNotificaciones(this.filtroActual);
+          });
+      },
+    });
   }
+
+  // redirigirEntrada(notificacion: any): void {
+  //   if (!notificacion.is_read) {
+  //     this.notificacionesService.markAsRead(notificacion._id).subscribe(() => {
+  //       notificacion.is_read = true;
+  //       this.notificacionesSinLeer--;
+  //     });
+  //   }
+  //   this.router.navigate([`/entrada/${notificacion.entrada_id}`]);
+  // }
 
   eliminarNotificacion(notificacion: any, event: Event): void {
     event.stopPropagation();
