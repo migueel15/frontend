@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from './usuario.service';
 import { ValoracionesComponent } from '../valoraciones/valoraciones.component';
 import { CommonModule } from '@angular/common';
+import { NewValoracionComponent } from "../new-valoracion/new-valoracion.component";
 
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [CommonModule, ValoracionesComponent],
+  imports: [CommonModule, ValoracionesComponent, NewValoracionComponent],
   templateUrl: './usuario.component.html'
 })
 export class UsuarioComponent implements OnInit {
@@ -15,6 +16,7 @@ export class UsuarioComponent implements OnInit {
   usuarioData: any;
   reputacionMedia: number = 0;
   estrellas: string[] = [];
+  @ViewChild(ValoracionesComponent) valoracionesComponent!: ValoracionesComponent;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,5 +64,11 @@ export class UsuarioComponent implements OnInit {
   onReputacionMediaCalculada(reputacion: number): void {
     this.reputacionMedia = reputacion;
     this.getEstrellas(reputacion);
+  }
+
+  actualizarValoraciones(): void {
+    if (this.valoracionesComponent) {
+      this.valoracionesComponent.obtenerValoraciones();
+    }
   }
 }

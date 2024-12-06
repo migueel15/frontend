@@ -24,6 +24,10 @@
   </div>
 </div>
 
+<app-new-valoracion
+  (valoracionCreada)="actualizarValoraciones()"
+></app-new-valoracion>
+
 <app-valoraciones
   [idUsuario]="idUsuario"
   (reputacionMediaCalculada)="onReputacionMediaCalculada($event)"

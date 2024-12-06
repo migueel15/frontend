@@ -14,4 +14,8 @@ export class ValoracionesService {
     const params = new HttpParams().set('idUsuarioValorado', idUsuarioValorado);
     return this.http.get<any>(`${this.apiUrl}`, { params });
   }
+
+  createValoracion(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, data);
+  }
 }
