@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ComentariosService } from "./comentarios.service";
 import { CommonModule, DatePipe } from "@angular/common";
+import { catchError, map, Observable, of } from "rxjs";
 import {
   FormBuilder,
   FormGroup,
@@ -49,19 +50,30 @@ export class ComentariosComponent {
   getUsuarios(data: any[]): void {
     console.log("getUsuarios");
     for (let comentario of data) {
-      console.log(comentario + " " + comentario['idUsuario']);
-      this.comentariosService.getUsuarioById(comentario['idUsuario']).subscribe({
-        next: (data: any) => {
-          console.log(data);
-          comentario['nombreUsuario'] = data['name'];
-        },
-        error: (err: any) => {
-          console.error('Error al obtener el usuario:', err);
-        },
-      });
+      console.log(comentario + " " + comentario["idUsuario"]);
+      this.comentariosService
+        .getUsuarioById(comentario["idUsuario"])
+        .subscribe({
+          next: (data: any) => {
+            console.log(data);
+            comentario["nombreUsuario"] = data["name"];
+          },
+          error: (err: any) => {
+            console.error("Error al obtener el usuario:", err);
+          },
+        });
     }
   }
 
+  getNameById(id: string): Observable<string> {
+    return this.comentariosService.getUsuarioById(id).pipe(
+      map((data: any) => data["name"]),
+      catchError((err: any) => {
+        console.error("Error al obtener el usuario:", err);
+        return of(""); // Devuelve un Observable con un string vacío en caso de error
+      }),
+    );
+  }
   crearComentario(): void {
     if (this.comentarioForm.valid) {
       const comentarioData = this.comentarioForm.value;
@@ -70,11 +82,17 @@ export class ComentariosComponent {
 
       this.comentariosService.crearComentario(comentarioData).subscribe({
         next: (response) => {
-          console.log("Comentario creado correctamente:", response);
           // put the new comment at the top of the list
-          this.comentarios.unshift(response);
-          this.comentarioForm.reset();
-          // window.location.reload();
+          this.getNameById(response["idUsuario"]).subscribe({
+            next: (data) => {
+              response.nombreUsuario = data;
+              this.comentarios.unshift(response);
+              this.comentarioForm.reset();
+            },
+            error: (err) => {
+              console.error("Error al obtener el nombre de usuario:", err);
+            },
+          });
         },
         error: (err) => {
           console.error("Error al crear el comentario:", err);
