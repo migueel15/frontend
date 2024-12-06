@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from './usuario.service';
+import { ValoracionesComponent } from '../valoraciones/valoraciones.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-usuario',
-  templateUrl: './usuario.component.html',
+  standalone: true,
+  imports: [CommonModule, ValoracionesComponent],
+  templateUrl: './usuario.component.html'
 })
 export class UsuarioComponent implements OnInit {
   idUsuario: string | null = null;
   usuarioData: any;
+  reputacionMedia: number = 0;
+  estrellas: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,5 +40,27 @@ export class UsuarioComponent implements OnInit {
         }
       });
     }
+  }
+
+  getEstrellas(nota: number): void {
+    const estrellas = [];
+    if (nota < 0) nota = 0;
+    if (nota > 5) nota = 5;
+
+    for (let i = 0; i < 5; i++) {
+      if (i < Math.floor(nota)) {
+        estrellas.push('fas fa-star');
+      } else if (i < Math.floor(nota) + 0.5 && (nota % 1) >= 0.5) {
+        estrellas.push('fas fa-star-half-alt');
+      } else {
+        estrellas.push('far fa-star');
+      }
+    }
+    this.estrellas = estrellas;
+  }
+
+  onReputacionMediaCalculada(reputacion: number): void {
+    this.reputacionMedia = reputacion;
+    this.getEstrellas(reputacion);
   }
 }

@@ -8,6 +8,7 @@ import { EntradaComponent } from "./entrada/entrada.component";
 import { EditorWikiComponent } from "./editar-wiki/editar-wiki.component";
 import { EditorEntradasComponent } from "./editor-entradas/editor-entradas.component";
 import { HistorialVersionesComponent } from "./historial-versiones/historial-versiones.component";
+import { PerfilComponent } from "./perfil/perfil.component";
 import { UsuarioComponent } from "./usuario/usuario.component";
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: "entrada/:id", component: EntradaComponent },
   { path: "entrada/:id/editar", component: EditorEntradasComponent },
   { path: "entrada/:id/historial", component: HistorialVersionesComponent},
+  { path: "perfil/:id", component: PerfilComponent},
   { path: "usuario/:id", component: UsuarioComponent},
   { path: "**", redirectTo: "" },
   // otras rutas
