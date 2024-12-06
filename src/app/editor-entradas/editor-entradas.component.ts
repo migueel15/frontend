@@ -116,6 +116,9 @@ export class EditorEntradasComponent implements OnInit {
     this.newContent = editor.getContent();
     if (this.newContent !== this.defaultContent) {
       this.guardarVersion();
+    } else {
+      this.editorInstance.destroy();
+      this.router.navigate(["/entrada/", this.idEntrada]);
     }
   }
 
