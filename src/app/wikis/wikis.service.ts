@@ -11,9 +11,15 @@ export class WikisService {
 
   constructor(private http: HttpClient) {}
 
-  getWikis(): Observable<any[]> {
+  getWikis(nombre?: string): Observable<any[]> {
+    let url = this.apiUrl;
+
+    if (nombre) {
+      url = `${this.apiUrl}?nombre=${nombre}`;
+    }
+
     return this.http
-      .get<{ wikis: any[] }>(this.apiUrl)
+      .get<{ wikis: any[] }>(url)
       .pipe(map((response) => response.wikis));
   }
 

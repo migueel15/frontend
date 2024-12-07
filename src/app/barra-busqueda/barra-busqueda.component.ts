@@ -9,10 +9,17 @@ import { FormsModule } from '@angular/forms';
 })
 export class BarraBusquedaComponent {
   textoBusqueda: string = '';
+  private timeoutBusqueda: any;
 
   @Output() busqueda = new EventEmitter<string>();
 
   onSearchChange() {
-    this.busqueda.emit(this.textoBusqueda);
+    if (this.timeoutBusqueda) {
+      clearTimeout(this.timeoutBusqueda);
+    }
+
+    this.timeoutBusqueda = setTimeout(() => {
+      this.busqueda.emit(this.textoBusqueda);
+    }, 250);
   }
 }

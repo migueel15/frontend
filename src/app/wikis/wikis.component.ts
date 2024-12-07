@@ -22,7 +22,11 @@ export class WikisComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.wikisService.getWikis().subscribe({
+    this.obtenerWikis();
+  }
+
+  obtenerWikis(nombre: string = ''): void {
+    this.wikisService.getWikis(nombre).subscribe({
       next: (data) => {
         this.wikis = data;
         this.wikisFiltradas = this.wikis;
@@ -41,9 +45,7 @@ export class WikisComponent implements OnInit {
 
   onSearchTextChanged(textoBusqueda: string): void {
     this.textoBusqueda = textoBusqueda;
-    this.wikisFiltradas = this.wikis.filter((wiki) =>
-      wiki.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
-    );
+    this.obtenerWikis(textoBusqueda);
   }
 
   handleWikiClick(wikiId: any) {
