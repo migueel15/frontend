@@ -29,9 +29,9 @@ export class ValoracionesComponent implements OnInit {
 
   obtenerValoraciones(): void {
     if (this.idUsuario) {
-      this.valoracionesService.getValoracionesByUsuario(this.idUsuario).subscribe({
-        next: (data) => {
-          this.valoraciones = data.valoraciones;
+      this.valoracionesService.getValoraciones(({ idUsuarioValorado: this.idUsuario })).subscribe({
+        next: (valoraciones) => {
+          this.valoraciones = valoraciones;
 
           this.calcularReputacionMedia();
 

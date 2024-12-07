@@ -83,7 +83,7 @@ export class EntradaComponent implements OnInit {
   private obtenerNombreUsuario(idUsuario: string) {
     this.usuarioService.getUsuario(idUsuario).subscribe({
       next: (usuario) => {
-        this.nombreUsuario = usuario.name; // Asigna el nombre al usuario
+        this.nombreUsuario = usuario.name;
       },
       error: (err) => {
         console.error("Error al obtener el usuario:", err);
