@@ -109,28 +109,44 @@ export class NotificacionesComponent implements OnInit {
   }
 
   redirigirEntrada(notificacion: any): void {
-    this.http.get(`/api/entradas/${notificacion.entrada_id}`).subscribe({
-      next: () => {
-        if (!notificacion.is_read) {
-          this.notificacionesService
-            .markAsRead(notificacion._id)
-            .subscribe(() => {
-              notificacion.is_read = true;
-              this.notificacionesSinLeer--;
-            });
-        }
-        this.router.navigate([`/entrada/${notificacion.entrada_id}`]);
-      },
-      error: () => {
-        this.notificacionesService
-          .markAsRead(notificacion._id)
-          .subscribe(() => {
-            notificacion.is_read = true;
-            this.notificacionesSinLeer--;
+    this.http
+      .get(`http://localhost:8000/entradas/${notificacion.entrada_id}`)
+      .subscribe({
+        next: () => {
+          if (!notificacion.is_read) {
+            this.notificacionesService
+              .markAsRead(notificacion._id)
+              .subscribe(() => {
+                notificacion.is_read = true;
+                this.notificacionesSinLeer--;
+                this.router
+                  .navigateByUrl(`/entrada/${notificacion.entrada_id}`)
+                  .then(() => {
+                    window.location.reload();
+                  });
+                this.filtrarNotificaciones(this.filtroActual);
+              });
+          } else {
+            this.router
+              .navigateByUrl(`/entrada/${notificacion.entrada_id}`)
+              .then(() => {
+                window.location.reload();
+              });
             this.filtrarNotificaciones(this.filtroActual);
-          });
-      },
-    });
+          }
+        },
+        error: () => {
+          if (!notificacion.is_read) {
+            this.notificacionesService
+              .markAsRead(notificacion._id)
+              .subscribe(() => {
+                notificacion.is_read = true;
+                this.notificacionesSinLeer--;
+                this.filtrarNotificaciones(this.filtroActual);
+              });
+          }
+        },
+      });
   }
 
   // redirigirEntrada(notificacion: any): void {
